@@ -1,0 +1,4 @@
+- op: remove
+  path: /spec/tasks/3/params/-
+  value:
+    name: MAVEN_MIRROR_URL

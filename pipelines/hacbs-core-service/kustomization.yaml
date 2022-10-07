@@ -16,3 +16,15 @@ patches:
       version: v1beta1
       kind: Pipeline
       labelSelector: skip-hacbs-test != true
+  - path: temp-disable-cache.yaml
+    target:
+      group: tekton.dev
+      version: v1beta1
+      kind: Pipeline
+      labelSelector: skip-hacbs-test != true, pipelines.openshift.io/runtime == java
+  - path: temp-disable-cache.yaml
+    target:
+      group: tekton.dev
+      version: v1beta1
+      kind: Pipeline
+      labelSelector: skip-hacbs-test != true, pipelines.openshift.io/runtime == generic
