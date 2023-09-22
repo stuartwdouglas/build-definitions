@@ -8,7 +8,7 @@ metadata:
   labels:
     app.kubernetes.io/version: "0.1"
     build.appstudio.redhat.com/build_type: docker
-    build.appstudio.redhat.com/multi-platform-required: "true"
+    build.appstudio.redhat.com/multi-arch-required: "true"
   name: buildah-remote
 spec:
   description: |-
@@ -62,6 +62,9 @@ spec:
     type: string
   - description: The platform to build on
     name: PLATFORM
+    type: string
+  - description: OLD
+    name: ARCH
     type: string
   results:
   - description: Digest of the image just built
@@ -123,7 +126,7 @@ spec:
       cp /ssh/id_rsa ~/.ssh
       chmod 0400 ~/.ssh/id_rsa
       export SSH_HOST=$(cat /ssh/host)
-      export BUILD_DIR=$(cat /ssh/user-dir)
+      export BUILD_DIR=$(cat /ssh/build-dir)
       export SSH_ARGS="-o StrictHostKeyChecking=no"
       mkdir -p scripts
       echo "$BUILD_DIR"
@@ -390,7 +393,7 @@ spec:
   - name: ssh
     secret:
       optional: false
-      secretName: multi-platform-ssh-$(context.taskRun.name)
+      secretName: multi-arch-ssh-$(context.taskRun.name)
   workspaces:
   - description: Workspace containing the source code to build.
     name: source
